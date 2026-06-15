@@ -10,15 +10,9 @@ const APP_URL = `http://${HOSTNAME}:${PORT}`;
 let mainWindow;
 let serverProcess;
 
-function getDatabaseUrl() {
-  const databasePath = path.join(app.getPath("userData"), "financial-control.db");
-  return `file:${databasePath.replaceAll("\\", "/")}`;
-}
-
 function startServer() {
   const env = {
     ...process.env,
-    DATABASE_URL: getDatabaseUrl(),
     HOSTNAME,
     PORT: String(PORT),
   };

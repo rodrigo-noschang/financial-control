@@ -3,16 +3,12 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
-const configuredDatabaseUrl = process.env["DATABASE_URL"];
-
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
   },
   datasource: {
-    url: configuredDatabaseUrl?.startsWith("file:")
-      ? configuredDatabaseUrl
-      : "file:./data/financial-control.db",
+    url: process.env["DATABASE_URL"],
   },
 });
