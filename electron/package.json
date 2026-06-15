@@ -1,0 +1,39 @@
+{
+  "name": "financial-control-desktop",
+  "version": "0.1.0",
+  "description": "Aplicativo desktop local para controle pessoal de despesas",
+  "author": "Rodrigo",
+  "private": true,
+  "main": "main.cjs",
+  "build": {
+    "appId": "com.rodrigo.controlefinanceiro",
+    "productName": "Controle Financeiro",
+    "artifactName": "Controle-Financeiro-Setup-${version}.${ext}",
+    "electronVersion": "42.4.0",
+    "npmRebuild": false,
+    "directories": {
+      "output": "../dist"
+    },
+    "files": [
+      "main.cjs",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../.next/standalone",
+        "to": "standalone"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "../app/favicon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Controle Financeiro"
+    }
+  }
+}

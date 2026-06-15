@@ -21,6 +21,8 @@ notes.md
 
 # production
 /build
+/dist
+/data
 
 # misc
 .DS_Store
