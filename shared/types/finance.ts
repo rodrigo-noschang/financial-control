@@ -8,7 +8,7 @@
 
 export type ExpenseDto = {
   id: string;
-  description: string;
+  description: string | null;
   amount: number;
   paidAt: string;
   isEssential: boolean;

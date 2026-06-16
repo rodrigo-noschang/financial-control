@@ -124,6 +124,10 @@ function getErrorMessage(error: unknown) {
   return "Nao foi possivel concluir a operacao.";
 }
 
+function getExpenseDescriptionLabel(expense: ExpenseDto) {
+  return expense.description ?? "Sem descricao";
+}
+
 function SummaryCard({ label, value, tone }: { label: string; value: number; tone: "total" | "essential" | "recurring" }) {
   const toneClass = {
     total: "border-primary/70 bg-primary text-primary-foreground shadow-lg shadow-orange-950/20",
@@ -272,7 +276,7 @@ function ExpenseForm({ categories, onClose, onOpenCategoryModal }: { categories:
         <div className="grid gap-4 md:grid-cols-2">
           <label className="grid gap-1 text-sm font-medium text-foreground">
             Descricao
-            <input className="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary" placeholder="Conta de luz" {...form.register("description")} />
+            <input className="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary" placeholder="Opcional" {...form.register("description")} />
             {form.formState.errors.description ? <span className="text-xs text-red-400">{form.formState.errors.description.message}</span> : null}
           </label>
           <label className="grid gap-1 text-sm font-medium text-foreground">
@@ -481,7 +485,7 @@ export function FinanceDashboard() {
                   ) : (
                     expenses.map((expense) => (
                       <tr key={expense.id}>
-                        <td className="px-5 py-4 font-medium text-foreground">{expense.description}</td>
+                        <td className="px-5 py-4 font-medium text-foreground">{getExpenseDescriptionLabel(expense)}</td>
                         <td className="px-5 py-4">
                           <span className="inline-flex items-center gap-2 rounded-md border border-border bg-background/40 px-2 py-1 text-xs font-medium text-muted-foreground">
                             <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: expense.category.color ?? "#71717a" }} />
@@ -553,7 +557,7 @@ export function FinanceDashboard() {
           <DialogHeader>
             <DialogTitle>Deletar despesa?</DialogTitle>
             <DialogDescription>
-              Tem certeza de que deseja deletar a despesa <strong className="font-semibold text-foreground">{expenseToDelete?.description}</strong>? Esta acao e irreversivel.
+              Tem certeza de que deseja deletar a despesa <strong className="font-semibold text-foreground">{expenseToDelete ? getExpenseDescriptionLabel(expenseToDelete) : ""}</strong>? Esta acao e irreversivel.
             </DialogDescription>
           </DialogHeader>
 

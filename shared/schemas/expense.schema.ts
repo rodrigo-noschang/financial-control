@@ -5,8 +5,16 @@ const dateOnlySchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Informe uma data valida.");
 
+const descriptionSchema = z
+  .string()
+  .trim()
+  .max(120)
+  .nullish()
+  .transform((value) => (value ? value : null))
+  .refine((value) => value === null || value.length >= 2, "Informe pelo menos 2 caracteres.");
+
 export const expensePayloadSchema = z.object({
-  description: z.string().trim().min(2, "Informe pelo menos 2 caracteres.").max(120),
+  description: descriptionSchema,
   amount: z.coerce.number().positive("Informe um valor maior que zero."),
   paidAt: dateOnlySchema,
   isEssential: z.coerce.boolean().default(false),
